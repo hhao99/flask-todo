@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block page_header %}
+	<div class='page-header'>
+	<h1> {{post.title}}</h1>
+	</div>
+{% endblock%}
+
+
+
+{% block content %}
+	<p> {{post.body}}</p>
+	<p> {{post.created_at.strftime('%H-%M %Y-%m-%d') }}</p>
+	<hr>
+	<h2> Comments </h2>
+	<form method='POST' action="{{url_for('post_add_comment')}}">
+	<input type=hidden name='id' value='{{post.id}}'/>
+	<dl>
+		<dt> Author:
+		<dd><input type=text name='author' value="your name"/>
+		<dt> Comment:
+		<dd> <input type=textarea row=5 cols=10 name='body'/>
+		<dd> <input type=submit value='Comment'/>
+	</dl>
+	</form>
+	{% if post.comments %}
+		{% for comment in post.comments %}
+			<p>{{comment.body}}</p>
+			<p><strong>{{comment.author}}</strong> on {{comment.created_at.strftime('%H:%M %Y-%m-%d')}}</p>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

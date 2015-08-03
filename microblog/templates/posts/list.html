@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{{url_for('post_new')}}">
+<h2 align='right'> new blog</h2>
+</a>
+	{% for post in posts %}
+	<h2><a href="{{url_for('post_detail',id=post.id)}}">{{post.title}}</a></h2>
+ <a href="{{url_for('post_edit',id=post.id)}}"><small>edit</small></a>
+ <a href="{{url_for('post_delete',id=post.id)}}"><small>delete</small></a>
+
+	<p>{{post.body| truncate(100)}}</p>
+	<p>
+		post at {{ post.created_at.strftime('%H:%M %Y-%m-%d') }} |
+
+		{{ post.comments.__len__()  }} comment(s) 
+	</p>
+	{% endfor %}
+{% endblock %}

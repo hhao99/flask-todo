@@ -1,0 +1,17 @@
+{% block page_header %}
+<div class="page_header">
+<h2> New Blog </h2>
+</div>
+{% endblock %}
+{% block content %}
+
+<form method='post' action="{{url_for('post_new')}}">
+<dl>
+	<dt>Title:
+	<dd> <input type=text name='title' value=''/>
+	<dt>Body:
+	<dd> <textarea rows='10' cols='80' name='body' value=''></textarea>
+	<dd> <input type="submit" value='Share'/>
+</dl>
+</form>
+{% endblock %}

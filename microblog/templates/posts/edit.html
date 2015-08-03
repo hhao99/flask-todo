@@ -1,0 +1,21 @@
+
+{% block page_header %}
+<div class="page_header">
+<h2> Edit Blog -- {{post.title }} </h2>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<form method='post' action="{{url_for('post_edit',id=post.id)}}">
+<input type=hidden name='id' value='{{post.id}}'
+
+	<dl>Title:
+	<dd> <input type=text name='title' value='{{post.title}}'/>
+	<dl>Body:
+	<dd><textarea name='body' value='{{post.body}}' rows=10 cols=80></textarea>
+	<dd> <input type="submit" value='Share'/>
+
+</form>
+{% endblock %}
