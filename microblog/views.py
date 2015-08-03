@@ -47,7 +47,7 @@ def post_add_comment():
 		comment.body = request.form['body']
 		post.comments.append(comment)
 		post.save()
-	return redirect(url_for('post_index'))
+	return redirect(url_for('post_detail',id=post.id))
 @app.route('/post/delete/<id>')
 def post_delete(id):
 	Post.objects.get(id=id).delete()

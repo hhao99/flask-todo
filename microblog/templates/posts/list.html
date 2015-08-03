@@ -5,9 +5,13 @@
 <h2 align='right'> new blog</h2>
 </a>
 	{% for post in posts %}
-	<h2><a href="{{url_for('post_detail',id=post.id)}}">{{post.title}}</a></h2>
- <a href="{{url_for('post_edit',id=post.id)}}"><small>edit</small></a>
- <a href="{{url_for('post_delete',id=post.id)}}"><small>delete</small></a>
+	<h2><a href="{{url_for('post_detail',id=post.id)}}">{{post.title}}</a>
+
+ <a href="{{url_for('post_edit',id=post.id)}}" >
+<img src="{{ url_for('static',filename='edit.png') }}" width=32 height=32></a>
+ <a href="{{url_for('post_delete',id=post.id)}}">
+<img src="{{ url_for('static',filename='delete.png') }}" width=32 height=32></a>
+</h2>
 
 	<p>{{post.body| truncate(100)}}</p>
 	<p>
