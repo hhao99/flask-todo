@@ -5,30 +5,18 @@
 
 Flask 应用开发和实践
 
-
-
-
-
-
-
 目录
 
-flask基本环境和核心功能
-flask 基本route和blueprint
-form 和 template
-数据库集成
-安全相关
-rest api  
-异步访问
-前端集成
-测试
-部署和容器化
-flask和其他微内核框架对比
-
-
-
-
-
+* flask基本环境和核心功能
+* flask 基本route和blueprint
+* form 和 template
+* 数据库集成
+*安全相关
+* rest api  
+* 异步访问
+* 前端集成
+* 测试
+* 部署和容器化
 
 
 # 前言  
