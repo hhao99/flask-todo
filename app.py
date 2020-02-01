@@ -1,9 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
+    title = 'flask quickstart'
+    return render_template('index.html', title=title)
+
+@app.route('/home')
+def home():
     return "HOME"
 
 @app.route('/hello')
