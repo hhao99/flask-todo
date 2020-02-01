@@ -19,8 +19,7 @@ def create_app(test_config = None):
     except OSError:
         print("error create app dir")
     
-    @app.route('/')
-    def index():
-        return "HOME"
+    from .routes import init_route
+    init_route(app)
 
     return app

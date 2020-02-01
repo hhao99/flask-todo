@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang='utf-8'>
+<head>
+    <title>{{title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.mini.css')}}">
+    <script src="{{ url_for('static',filename='js/bootstrap.mini.js')}}"></script>
+
+</head>
+<body>
+    <div class='container'>
+        {% block main %}{% endblock %}
+    </div>
+        
+   <h5>Copyright by Eric Hao hhao99#163.com</h5>
+</body>
+
+</html>
