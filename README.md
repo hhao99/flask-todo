@@ -73,10 +73,10 @@ python3 中已经内嵌了venv，同时也可以考虑conda。
 ## flask的hello world 程序
 app.py # the flask app start file
 
-from flask import Flask
-app = Flask(__name__)
-@app.route('/')
-def hello_world():
+1. from flask import Flask
+2. app = Flask(__name__)
+3. @app.route('/')
+4. def hello_world():
 5.	return 'Hello, World!'
 
 * 引入flask的包
@@ -94,4 +94,5 @@ FLASK_ENV=development
 默认情况下flask会寻找当前目录下的app.py或者run.py，但是不推荐这么做了。
 FLASK_ENV和 FLASK_DEBUG是控制开发和生产模式的开关变量，在开发模式下，我们可以web界面看到调试的信息，可以利用系统内置的hot-reload模式不用重启应用看到代码更改之后的变化。
 如果想要使用更稳定强大的hot-reload功能，推荐使用watchdog。
+推荐使用python-dotenv，可以自动加载 .env文件中的环境变量
 
