@@ -96,3 +96,5 @@ FLASK_ENV和 FLASK_DEBUG是控制开发和生产模式的开关变量，在开�
 如果想要使用更稳定强大的hot-reload功能，推荐使用watchdog。
 推荐使用python-dotenv，可以自动加载 .env文件中的环境变量
 
+# 路由和模板初步
+
