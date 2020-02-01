@@ -3,7 +3,7 @@ Flask 应用开发和实践
 
 目录
 
-* [flask基本环境和核心功能](# 前言)
+* flask基本环境和核心功能
 * flask 基本route和blueprint
 * form 和 template
 * 数据库集成
@@ -214,4 +214,31 @@ def home():
 
 {{ title }} 可以在模板中直接输出python变量的内容， {% %} 可以执行模板的动态语言。
 
+
+# Flask todo - 一个完整的todo应用功能
+
+现在，我们需要开始一个完整的web应用程序。
+循序渐进，我们首先从一个简单的todo应用开始。
+
+## 应用逻辑
+todo应用主要是追踪用户的代办事项。
+
+第一步，可以显示用户的代办事项。
+第二步，可以增删改相关的代办事项。
+第三步，连接后台的数据库，持久化相关的用户状态到数据库。
+
+## 第一步，简单的代办事项
+
+首先我们采用修改现有的应用组织方式，删除现有app.py,采用包的方式，将todo相关的逻辑功能组织到一个目录里面。
+
+Flask-todo/
+      |- todo
+            |- __init__.py
+            |- templates
+            |- static
+      |- config.py
+      |- .env
+      |- LICENSE
+      |- README.txt
+      |- requirements.txt
 
