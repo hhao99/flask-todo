@@ -213,3 +213,5 @@ def home():
 在模板中，flask 中相关的web请求的对象 request,response， session和g都是可见的，同时可以使用get_flashed_messages()或者后端推送的消息。
 
 {{ title }} 可以在模板中直接输出python变量的内容， {% %} 可以执行模板的动态语言。
+
+
