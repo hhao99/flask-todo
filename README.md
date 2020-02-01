@@ -1,17 +1,13 @@
 
-
-
-
-
 Flask 应用开发和实践
 
 目录
 
-* flask基本环境和核心功能
+* [flask基本环境和核心功能](# 前言)
 * flask 基本route和blueprint
 * form 和 template
 * 数据库集成
-*安全相关
+* 安全相关
 * rest api  
 * 异步访问
 * 前端集成
