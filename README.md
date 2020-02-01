@@ -85,7 +85,7 @@ app.py # the flask app start file
 * 实际路由定义的函数
 * 这里只是简单的返回 ’hello world!'
 
-## 启动helloworld
+## 启动 Helloworld
 首先需要引入两个环境变量
 FLASK_APP=app.py
 FLASK_ENV=development
@@ -97,4 +97,26 @@ FLASK_ENV和 FLASK_DEBUG是控制开发和生产模式的开关变量，在开�
 推荐使用python-dotenv，可以自动加载 .env文件中的环境变量
 
 # 路由和模板初步
+
+在 Hello World中，我们定义了一个web请求的入口，app.route是flask的装饰器，可以帮助我们在flask应用上下文中注册相关的view 控制器，用于处理用户提交url请求后相关的处理。
+
+@app.route('/')
+def index():
+      return "Hello World!"
+
+这是这个应用的主入口，用户在浏览器中输入http://localhost:5000/， flask就会解析这个请求，根据应用的配置信息和这个定义，将接下来的处理逻辑交给在这里定义的函数。
+
+在现实应用中，http请求和处理远比这个示例复杂。
+
+## http 请求基本信息
+对于 http://localhost:5000/, 用户在浏览器中输入这个url，接下来会发生什么呢？
+
+|---|---|---|
+|Browser|Flask|app code|
+|发出get|-|-|
+|-|flask截获请求，判断请求方法，查找路由表，构造request和response对象，调用对应的处理函数|-|
+|-|-|处理函数分析request对象，执行业务逻辑，返回response对象-|
+|-|flask对response对象进一步处理，返回请求结果到客户端|-|
+|浏览器解析返回结果，显示相关的内容|-|-|
+
 
