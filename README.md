@@ -99,11 +99,11 @@ FLASK_ENV和 FLASK_DEBUG是控制开发和生产模式的开关变量，在开�
 # 路由和模板初步
 
 在 Hello World中，我们定义了一个web请求的入口，app.route是flask的装饰器，可以帮助我们在flask应用上下文中注册相关的view 控制器，用于处理用户提交url请求后相关的处理。
-
+```
 @app.route('/')
 def index():
       return "Hello World!"
-
+```
 这是这个应用的主入口，用户在浏览器中输入http://localhost:5000/， flask就会解析这个请求，根据应用的配置信息和这个定义，将接下来的处理逻辑交给在这里定义的函数。
 
 在现实应用中，http请求和处理远比这个示例复杂。
@@ -111,12 +111,105 @@ def index():
 ## http 请求基本信息
 对于 http://localhost:5000/, 用户在浏览器中输入这个url，接下来会发生什么呢？
 
-|---|---|---|
-|Browser|Flask|app code|
-|发出get|-|-|
-|-|flask截获请求，判断请求方法，查找路由表，构造request和response对象，调用对应的处理函数|-|
-|-|-|处理函数分析request对象，执行业务逻辑，返回response对象-|
-|-|flask对response对象进一步处理，返回请求结果到客户端|-|
+| Browser| Flask| app code|
+|------|------|------|
+| 发出get| ->| -|
+| -| flask截获请求，判断请求方法，查找路由表，构造request和response对象，调用对应的处理函数| ->|
+|-|<-|处理函数分析request对象，执行业务逻辑，返回response对象-|
+|<-|flask对response对象进一步处理，返回请求结果到客户端|-|
 |浏览器解析返回结果，显示相关的内容|-|-|
 
 
+现在我们定义一个新的请求路径
+
+```
+@app.route('/home’)
+def home():
+      return "HOME"
+```
+
+我们可以使用http://localhost:5000/home 来访问这个新定义的功能了。
+
+## 在route中定义变量
+在route中，我们不仅可以定义路径，同时还可以定义我们需要处理的变量和变量的类型
+
+```
+@app.route('/hello/<username>')
+def home(username):
+      # greeting to the username
+      return "Hello " + username
+```
+
+```
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+      return f'Post Id: {post_id}'
+```
+
+```
+@app.route('/home/<path:subpath>')
+def show_subpath(subpath):
+      return f'Subpath is {subpath}'
+```
+
+## url 绑定
+在实际的应用中，我们需要在应用的不同位置引用需要访问的url地址，使用绝对路径可以解决问题，但是如果你的应用发生变化，所有相关的路径都需要修改。
+url_for（）函数可以帮助我们解决这个问题，flask可以帮助我们反推出我们相关url处理函数中定义的url路径，这样我们可以在应用中可以清晰的指定这个请求需要处理的函数是什么。
+
+具体url_for()的应用，我们在模板中会有相关的示例。
+
+## http 方法
+http 请求方法主要是GET，POST，PUT，UPDATE，DELETE，HEAD，其中最常用的是GET和POST,对于表单的处理，一般是使用post方式，所以需要在代码中明确处理的http方法
+
+```
+@app.route('/home',methods=['GET'])
+def home():
+      return "HOME"
+```
+
+```
+@app.route('/new_user',methods=['GET','POST'])
+def home():
+      if request.method == 'POST':
+            # processing the post 
+
+```
+
+## 静态文件
+web应用中需要使用色的图片，样式，javascript等文件，可以利用web服务器来存取，但是如果只有flask，可以利用flask内置的静态url端点来服务这些请求
+
+url_for（'static'，filename='style.css')
+
+根据约定，需要应用相对路径下面创建static目录，将相关的文件放在这个目录下面。
+
+## 使用模板
+
+在动态web应用中，和html相关的样式，布局等和前端展示相关的内容，可以使用模板定义在不同的文件中，在请求中，将需要的内容更新后，将相关的内容展示交给相应的模板引擎进行渲染，然后返回给客户端。
+Flask 缺省使用Jinja2模板引擎，你也可以配置自己的模板引擎。
+
+```
+@app.route('/home',methods=['GET'])
+def home():
+      title = 'Home'
+      return render_template('index.html',title=title)
+```
+
+模板相关的文件放在应用相对的templates路径下面。
+
+```
+<!doctype html>
+<head>
+      <title> {{title}} </title>
+</head>
+<body>
+      {%if name %}
+      <h1>Hello {{name}}</h1>
+      {%else %}
+      <h1>Hello World</h1>
+      {% endif %}
+</body>
+</html>
+
+在模板中，flask 中相关的web请求的对象 request,response， session和g都是可见的，同时可以使用get_flashed_messages()或者后端推送的消息。
+
+{{ title }} 可以在模板中直接输出python变量的内容， {% %} 可以执行模板的动态语言。
