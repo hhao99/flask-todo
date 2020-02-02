@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="container text-center mx-auto">
+    <h1>Todo App</h1>
+</div>
+<div class="container text-center mx-auto">
+    <h3>New Todo</h3>
+</div>
+
+<div class='container'>
+    <form method='post' action=''>
+        <label for='task'>New Task</label> 
+        <input type='text' name='task' placeholder="new task">
+        <br>
+        <input type='submit' value='save'>
+    </form>
+</div>
+{% endblock %}

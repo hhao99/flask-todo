@@ -2,16 +2,56 @@
 <html lang='utf-8'>
 <head>
     <title>{{title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.mini.css')}}">
-    <script src="{{ url_for('static',filename='js/bootstrap.mini.js')}}"></script>
 
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css')}}">
+    
 </head>
 <body>
-    <div class='container'>
-        {% block main %}{% endblock %}
-    </div>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Todo Demo</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+          <a class="p-2 text-dark" href="/">Home</a>
+          <a class="p-2 text-dark" href="/new">New</a>
+          <a class="p-2 text-dark" href="/about">About</a>
+          <a class="p-2 text-dark" href="http://github.com/hhao99">My Github</a>
+        </nav>
+        <a class="btn btn-outline-primary" href="#">Sign up</a>
+      </div>
+    <div class='container-fluid'>
+        {% block main %}
         
-   <h5>Copyright by Eric Hao hhao99#163.com</h5>
+        {% endblock %}
+    </div>
+     
+    
+  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <img class="mb-2" src="/docs/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+        
+      </div>
+      <div class="col-6 col-md">
+        
+      </div>
+      <div class="col-6 col-md">
+       
+      </div>
+      <div class="col-6 col-md">
+        <h6>Copyright by Eric Hao hhao99#163.com</h6>
+        <small class="d-block mb-3 text-muted">&copy; 1999-2020</small>
+      </div>
+    </div>
+  </footer>
+    
+   
+
+   <script src="{{ url_for('static',filename='js/bootstrap.bundle.min.js')}}"></script>
+
 </body>
 
 </html>

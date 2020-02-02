@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
 {% block main %}
-<h1>Todo App</h1>
+<div class="container text-center mx-auto">
+    <h1>Todo App</h1>
+</div>
+
+<div class='container'>
+    {% for todo in todos %}
+    <li>{{todo.task}}</li>
+    {% endfor %}
+</div>
 {% endblock %}
