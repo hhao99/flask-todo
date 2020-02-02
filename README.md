@@ -243,3 +243,67 @@ Flask-todo/
       |- requirements.txt
 
 ···
+
+## 添加显示代办事项的逻辑
+
+首先，我们专注在核心逻辑上面，代办事项使用一个数组
+
+```
+todos = [
+      { 'task': '1st task', 'isDone': False},
+      { 'task': '2nd task', 'isDone': True}
+]
+
+添加到routes.py里面，作为一个全局变量，这个变量在应用启动启动以后会一直存在，知道你重启这个应用。
+
+我们需要显示这个代办事项，在index中，我们这样显示
+
+'''
+{% for todo in todos %}
+<li> {{ todo.task}} </li>
+{% endfor %}
+'''
+在实际项目中，我们使用了模板继承，base.html定义应用的主要页面布局，在index.html中，扩展base.html，只需要将上面的代码逻辑放在main block里面就可以。
+
+## 代办事项的相关操作
+这里，我们需要实现代办事项的增删改等相关的操作。首先从新建代办开始。
+
+在routes.py中，新添加一个新的路由
+'''
+  @app.route('/new',methods=['GET','POST'])
+    def new():
+        if request.method == 'POST':
+            task = request.form['task']
+            todos.append({'task': task, 'isDone': False})
+            return redirect(url_for('index'))
+        return render_template('edit.html')
+
+'''
+这里，我们需要手动从request对象中解析前端表单中相关的变量，然后创建简单的etask对象，然后添加到todos数组中。
+
+对于修改和更新，我们需要一个唯一的ID获取todos中的todo对象，简单的数字的索引就可以，后面我们使用数据库的时候，需要使用数据库提供的ID唯一标识追踪这些代办事项。
+
+'''
+  @app.route('/edit/<int:id>',methods=['GET','POST'])
+    def new(id):
+      todo = todos[id]
+      if request.method == 'POST':
+         task = request.form['task']
+         isDone = request.form['isDone']
+         todos[i] = {'task': task, 'isDone': isDone }
+         return redirect(url_for('index'))
+      return render_template('edit.html',task=task)
+
+'''
+这里，更新代办事项需要一个表单，显示现有代办事项信息，可以更新代办事项的状态，所以需要一个唯一的ID追踪这些状态变化，这里首先取出代办事项的现有状态，然后在前端显示更新的表单，用户提交表单时，会使用POST方法将新的状态传回来，然后我们可以获得相关的状态，更新到代办列表中。
+
+
+'''
+  @app.route('/edit/<int:id>',methods=['GET'])
+    def delete(id):
+      del todos[id]
+      return redirect(url_for('index'))
+      
+'''
+从列表中删除这个代办事项，然后直接返回到开始页面。
+
