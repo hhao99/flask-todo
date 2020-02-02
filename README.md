@@ -277,8 +277,8 @@ todos = [
             todos.append({'task': task, 'isDone': False})
             return redirect(url_for('index'))
         return render_template('edit.html')
-
 '''
+
 这里，我们需要手动从request对象中解析前端表单中相关的变量，然后创建简单的etask对象，然后添加到todos数组中。
 
 对于修改和更新，我们需要一个唯一的ID获取todos中的todo对象，简单的数字的索引就可以，后面我们使用数据库的时候，需要使用数据库提供的ID唯一标识追踪这些代办事项。
@@ -293,17 +293,15 @@ todos = [
          todos[i] = {'task': task, 'isDone': isDone }
          return redirect(url_for('index'))
       return render_template('edit.html',task=task)
-
 '''
 这里，更新代办事项需要一个表单，显示现有代办事项信息，可以更新代办事项的状态，所以需要一个唯一的ID追踪这些状态变化，这里首先取出代办事项的现有状态，然后在前端显示更新的表单，用户提交表单时，会使用POST方法将新的状态传回来，然后我们可以获得相关的状态，更新到代办列表中。
-
 
 '''
   @app.route('/edit/<int:id>',methods=['GET'])
     def delete(id):
       del todos[id]
       return redirect(url_for('index'))
-      
 '''
+
 从列表中删除这个代办事项，然后直接返回到开始页面。
 
