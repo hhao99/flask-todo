@@ -307,3 +307,78 @@ todos = [
 
 从列表中删除这个代办事项，然后直接返回到开始页面。
 
+## 更新todo应用的表单
+
+我们的表单只是一个基本的输入表单，没有模型承载这个表单，没有基本的数据校验和错误反馈机制。
+现在，我们需要利用flask提供的扩展flask-wtf改造这个表单，能够实现数据的校验。
+
+### 应用的配置
+前面没有详谈应用的配置，现在在表单中需要配置表单的secret_key配置,这样我们就可以利用flask-wtf的内置能力保证前端提交的数据是真实有效的，防止跨站伪造请求攻击（CSRF - Cross-Site Request Forgery）。
+
+```
+app.config.from_mapping(
+      SECRET_KEY='the_key_never_be_guessed'
+)
+```
+在包的初始化中，指定配置项。
+
+在flask中，app.config是应用的全局变量，我们可以从python对象中，python文件中，简单的k/v映射中配置相关的内容。
+在云原生应用中，对不同环境准备不同的配置文件是很好的实践。
+
+### 代办编辑表单
+flask-wtf扩展使用python的类来表示前端的web表单，表单类继承于FlaskForm，定义我们需要的web表单的字段和数据校验的逻辑。
+为了结构清晰，我们将表单放在forms.py文件中。
+```
+from flask_wtf import FlaskForm
+from wtforms import StringField,  BooleanField, SubmitField
+from wtforms.validators import DataRequired
+
+class TodoForm(FlaskForm):
+    task = StringField('Task', validators=[DataRequired()])
+    isDone = BooleanField('isDone')
+    submit = SubmitField('Save')
+```
+
+在前端web页面，我们的form页面改造成下面的形式：
+···
+{% extends 'base.htm' %}
+{% block main %}
+      <div id='conainter text-center'>
+      <h1> Todo App </h1>
+      </div>
+      <form>
+            {{ form_hidden_tag() }}
+            <div class='conatainer'>
+                  {{ form.task.label }}
+                  {{ form.task(size=60)}}
+            </div>
+            <div class='conatainer'>
+                  {{ form.isdone }}
+                  {{ form.isDone.label }}
+                  
+            </div>
+            <div class='conatainer'>
+                  {{ form.submit() }}
+            </div>
+      </form>
+{% endblock %}
+···
+在这个模板中，form.hidden_tag（）是强制存在的，flask-wtf利用这种机制实现CSRF功能。
+
+···
+@app.route('/new')
+def new():
+      form = TodoForm()
+      return render_template('edit.html',form=form)
+···
+
+### 接收表单数据
+Flask-wtf中，处理表单的工作变得简单，我们不需要在解析request中的数据，直接构造表单对象，数据检查和数据转换都由wtf承担，我们只需要关注表单接受以后的业务逻辑。
+
+```
+@app.route('/new',methods=['POST']):
+      form = TodoForm()
+      if form.validate_on_submit()
+            todos.append({'task': form.task, 'isDone': form.isDone})
+            return redirect('/index')
+```

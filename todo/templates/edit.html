@@ -9,10 +9,18 @@
 
 <div class='container'>
     <form method='post' action=''>
-        <label for='task'>New Task</label> 
-        <input type='text' name='task' placeholder="new task">
-        <br>
-        <input type='submit' value='save'>
+        <div class='conatainer'>
+            {{ form.task.label }}
+            {{ form.task(size=60)}}
+      </div>
+      <div class='conatainer'>
+            {{ form.isdone }}
+            {{ form.isDone.label }}
+            
+      </div>
+      <div class='conatainer'>
+            {{ form.submit() }}
+      </div>
     </form>
 </div>
 {% endblock %}

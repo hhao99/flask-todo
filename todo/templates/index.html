@@ -6,7 +6,7 @@
 
 <div class='container'>
     {% for todo in todos %}
-    <li>{{todo.task}}</li>
+    <li>{{todo.task}} - <a href="{{ url_for('delete',id=0) }}">DEL</a></li>
     {% endfor %}
 </div>
 {% endblock %}
