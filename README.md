@@ -16,7 +16,9 @@ Flask 应用开发和实践
 
 
 # 前言  
+
 ## flask 基于python的微内核web框架
+
 python是通用的开发语言，在web应用开发方面，既有大而全的djaong，也有小而精的flask，还有其他各种特性的特定目的的web应用框架。
 微内核框架，适合大而全的框架比较而言的。
 微，不代表这功能少，什么都需要自己开发，而是将开发和架构的选择权交付给用户，只关注于核心的web请求和路由的功能，其他的功能通过可扩展的方式，同样可以完成django等大型框架实现的功能。
@@ -31,6 +33,7 @@ python是通用的开发语言，在web应用开发方面，既有大而全的dj
 这里有起步python全面的资源，常用的web框架和相关的资源已经在这里
   
 ## 经典的起步教程
+
 [flask mega ] (https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 [explore-flask] (http://exploreflask.com/)
   
@@ -48,6 +51,7 @@ python3 中已经内嵌了venv，同时也可以考虑conda。
 [ustc mirros] (https://mirrors.tuna.tsinghua.edu.cn/anaconda/) ## 现在usts源中的anaconda的帮助不见了
 
 ## 工程目录选择
+
 在我的开苏开始脚手架中，大家可以看到下面的目录结构
 
 /-
@@ -63,7 +67,9 @@ python3 中已经内嵌了venv，同时也可以考虑conda。
 
 
 # 起步，flask的hello world
-## Hello World 
+
+## Hello World
+
 首先，还是从hello world开始起步。
 大家可以参考flask官方的教程的最小flask应用部分
 [Flask official link](https://flask.palletsprojects.com/en/1.1.x/)
@@ -71,6 +77,7 @@ python3 中已经内嵌了venv，同时也可以考虑conda。
 [flask quick start - minimal app](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application)
 
 ## flask的hello world 程序
+
 app.py # the flask app start file
 
 1. from flask import Flask
@@ -86,6 +93,7 @@ app.py # the flask app start file
 * 这里只是简单的返回 ’hello world!'
 
 ## 启动 Helloworld
+
 首先需要引入两个环境变量
 FLASK_APP=app.py
 FLASK_ENV=development
@@ -98,17 +106,19 @@ FLASK_ENV和 FLASK_DEBUG是控制开发和生产模式的开关变量，在开�
 
 # 路由和模板初步
 
-在 Hello World中，我们定义了一个web请求的入口，app.route是flask的装饰器，可以帮助我们在flask应用上下文中注册相关的view 控制器，用于处理用户提交url请求后相关的处理。
+在 Hello World中，我们定义了一个web请求的入口，app.route是flask的装饰器，可以帮助我们在flask应用上下文中注册相关的view 控制器，用于处理用户提交url请求后相关的处理。、
 ```
 @app.route('/')
 def index():
       return "Hello World!"
 ```
+
 这是这个应用的主入口，用户在浏览器中输入http://localhost:5000/， flask就会解析这个请求，根据应用的配置信息和这个定义，将接下来的处理逻辑交给在这里定义的函数。
 
 在现实应用中，http请求和处理远比这个示例复杂。
 
 ## http 请求基本信息
+
 对于 http://localhost:5000/, 用户在浏览器中输入这个url，接下来会发生什么呢？
 
 | Browser| Flask| app code|
@@ -131,6 +141,7 @@ def home():
 我们可以使用http://localhost:5000/home 来访问这个新定义的功能了。
 
 ## 在route中定义变量
+
 在route中，我们不仅可以定义路径，同时还可以定义我们需要处理的变量和变量的类型
 
 ```
@@ -153,12 +164,14 @@ def show_subpath(subpath):
 ```
 
 ## url 绑定
+
 在实际的应用中，我们需要在应用的不同位置引用需要访问的url地址，使用绝对路径可以解决问题，但是如果你的应用发生变化，所有相关的路径都需要修改。
 url_for（）函数可以帮助我们解决这个问题，flask可以帮助我们反推出我们相关url处理函数中定义的url路径，这样我们可以在应用中可以清晰的指定这个请求需要处理的函数是什么。
 
 具体url_for()的应用，我们在模板中会有相关的示例。
 
 ## http 方法
+
 http 请求方法主要是GET，POST，PUT，UPDATE，DELETE，HEAD，其中最常用的是GET和POST,对于表单的处理，一般是使用post方式，所以需要在代码中明确处理的http方法
 
 ```
@@ -176,6 +189,7 @@ def home():
 ```
 
 ## 静态文件
+
 web应用中需要使用色的图片，样式，javascript等文件，可以利用web服务器来存取，但是如果只有flask，可以利用flask内置的静态url端点来服务这些请求
 
 url_for（'static'，filename='style.css')
@@ -221,6 +235,7 @@ def home():
 循序渐进，我们首先从一个简单的todo应用开始。
 
 ## 应用逻辑
+
 todo应用主要是追踪用户的代办事项。
 
 第一步，可以显示用户的代办事项。
@@ -268,6 +283,7 @@ todos = [
 在实际项目中，我们使用了模板继承，base.html定义应用的主要页面布局，在index.html中，扩展base.html，只需要将上面的代码逻辑放在main block里面就可以。
 
 ## 代办事项的相关操作
+
 这里，我们需要实现代办事项的增删改等相关的操作。首先从新建代办开始。
 
 在routes.py中，新添加一个新的路由
@@ -313,6 +329,7 @@ todos = [
 现在，我们需要利用flask提供的扩展flask-wtf改造这个表单，能够实现数据的校验。
 
 ### 应用的配置
+
 前面没有详谈应用的配置，现在在表单中需要配置表单的secret_key配置,这样我们就可以利用flask-wtf的内置能力保证前端提交的数据是真实有效的，防止跨站伪造请求攻击（CSRF - Cross-Site Request Forgery）。
 
 ```
@@ -326,6 +343,7 @@ app.config.from_mapping(
 在云原生应用中，对不同环境准备不同的配置文件是很好的实践。
 
 ### 代办编辑表单
+
 flask-wtf扩展使用python的类来表示前端的web表单，表单类继承于FlaskForm，定义我们需要的web表单的字段和数据校验的逻辑。
 为了结构清晰，我们将表单放在forms.py文件中。
 ```
@@ -373,6 +391,7 @@ def new():
 ···
 
 ### 接收表单数据
+
 Flask-wtf中，处理表单的工作变得简单，我们不需要在解析request中的数据，直接构造表单对象，数据检查和数据转换都由wtf承担，我们只需要关注表单接受以后的业务逻辑。
 
 ```
@@ -396,3 +415,76 @@ Flask-wtf中，处理表单的工作变得简单，我们不需要在解析reque
 这里我们引入数据库的支持，能够将todo代办事项保存到数据中。
 在flask中，我们可以使用python提供的数据库驱动包的支持，直接写sql语句操作数据库，也可以使用ORM(对象关系模型)框架（sqlalchemy或者peewee）操作数据库，flask微核心框架的特性就在于可以允许我们选择合适的框架。
 数据库方面，小而精的sqlite，python内置已经支持了，在你安装python的时候，sqlite相关的库和运行时已经
+
+### 安装sqlalchemy
+
+SqlAlchemy是python上流行的ORM库，封装了大部分关系型数据相关的操作。
+flask-sqlalchemy是flask上面的sqlalchemy的扩展，可以方便操作sqlalchemy
+
+'''
+pip install flask-sqlalchemy
+'''
+这样就可以安装好sqlalchemy相关的支持了。
+
+同时我们还需要数据库迁移的支持，方便我们更改了模型相关的代码，利用flask命令行就可以更改数据库的结构。
+'''
+pip install flask-migrate
+'''
+
+### Sqlalchemy 相关的配置
+
+在开发过程中，我们可以使用sqlite作为测试数据库，在配置文件中，我们可以切换开发和生产不同的配置文件，指定开发和生产不同的数据库类型和相关的配置。
+
+现在我们需要在新建一个config.py， 指定sqlalchemy相关的配置
+
+'''
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    'sqlite:///' + os.path.join(basedir, 'app.db')
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+'''
+然后在todo包的__init__.py中，引入创建的相关配置
+
+'''
+    if(test_config == None):
+        app.config.from_pyfile('../config.py',silent=True)
+    else:
+        app.config.from_mapping(test_config)
+    
+    try:
+        os.mkdir(app.instance_path)
+    except OSError:
+        print("error create app dir")  
+'''
+
+然后，我们需要在todo包中的__init__.py中初始化sqlalchemy和migration
+
+'''
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+...
+
+db = SQLAlchemy(app)
+migrate = Migrate(app,db)
+
+from app import routes,models
+'''
+这里我们新加入和model模块，用于承载sqlalchemy的数据库模型
+
+'''
+# todo/models.py: todo model
+
+from todo import db
+
+Class Todo(db.Model):
+      id = db.Column(db.Integer, primary_key=True)
+      task = db.Column(db.String(120))
+      isDone= db.Column(db.Boolean)
+
+      def __repr__(self):
+            return f'<Todo> {self.task}'
+'''
+__repr__方法告诉python需要对这个对象字符串表达时返回什么信息。
+

@@ -8,6 +8,7 @@ def create_app(test_config = None):
         SECRET_KEY='dev',
         DATABASE = os.path.join(app.instance_path,'todo.sqlite3')
     )
+   
 
     if(test_config == None):
         app.config.from_pyfile('../config.py',silent=True)
