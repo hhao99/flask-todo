@@ -2,14 +2,17 @@ from flask import (
     render_template, redirect, render_template, 
     request, g, flash, url_for
 )
-from todo import db
 from .forms import TodoForm
+from .models import Todo
+from .models import db
 
-todos = []
+
 def init_route(app):
 
     @app.route('/')
     def index():
+        
+        todos = Todo.query.all()
         
         return render_template('index.html',todos = todos)
 
@@ -20,10 +23,14 @@ def init_route(app):
             if form.validate_on_submit():
                 task = form.task.data 
                 isDone = form.isdone.data
-                todos.append({'task': task, 'isDone': isDone})
+                t = Todo(task=task,isDone = isDone)
+                print(t)
+                db.session.add(t)
+                db.commit()
+                print(t + " is saved")
                 return redirect(url_for('index'))
         form = TodoForm()
-        return render_template('edit.html',form=form)
+        return render_template('edit.html',form=form,action=url_for('new'))
 
     @app.route('/delete/<int:id>')
     def delete(id):

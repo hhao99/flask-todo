@@ -1,7 +1,9 @@
+from flask import current_app
+from flask_sqlalchemy import SQLAlchemy
 
-from todo import db
+db = SQLAlchemy()
 
-Class Todo(db.Model):
+class Todo(db.Model):
       id = db.Column(db.Integer, primary_key=True)
       task = db.Column(db.String(120))
       isDone= db.Column(db.Boolean)

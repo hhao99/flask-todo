@@ -1,31 +1,37 @@
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
 
 def create_app(test_config = None):
     app = Flask(__name__,instance_relative_config=True)
+    basedir = os.path.abspath(os.path.dirname(__file__))
 
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE = os.path.join(app.instance_path,'todo.sqlite3')
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+            'sqlite:///' + os.path.join(basedir, 'app.db'),
+        SQLALCHEMY_TRACK_MODIFICATIONS = False
     )
    
 
-    if(test_config == None):
-        app.config.from_pyfile('../config.py',silent=True)
-    else:
-        app.config.from_mapping(test_config)
+    # if(test_config == None):
+    #     app.config.from_pyfile('../config.py',silent=True)
+    # else:
+    #     app.config.from_mapping(test_config)
     
     try:
         os.mkdir(app.instance_path)
     except OSError:
         print("error create app dir")
     
-    db = SQLAlchemy(app)
-    migrate = Migrate(app,db)
+    
+    from todo import models, routes
 
-    from .routes import init_route
-    init_route(app)
+    models.db.init_app(app)
+    migrate = Migrate(app,models.db)
+
+
+    routes.init_route(app)
 
     return app
