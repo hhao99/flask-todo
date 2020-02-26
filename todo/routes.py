@@ -2,6 +2,8 @@ from flask import (
     render_template, redirect, render_template, 
     request, g, flash, url_for
 )
+from todo import db
+from .forms import TodoForm
 
 todos = []
 def init_route(app):

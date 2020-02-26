@@ -1,5 +1,7 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 def create_app(test_config = None):
     app = Flask(__name__,instance_relative_config=True)
@@ -20,6 +22,9 @@ def create_app(test_config = None):
     except OSError:
         print("error create app dir")
     
+    db = SQLAlchemy(app)
+    migrate = Migrate(app,db)
+
     from .routes import init_route
     init_route(app)
 

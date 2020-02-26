@@ -35,6 +35,7 @@ python是通用的开发语言，在web应用开发方面，既有大而全的dj
 ## 经典的起步教程
 
 [flask mega ] (https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+
 [explore-flask] (http://exploreflask.com/)
   
 我的flask 快速开始脚手架
