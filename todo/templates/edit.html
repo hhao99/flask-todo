@@ -9,12 +9,13 @@
 
 <div class='container'>
     <form method='post' action='{{action}}'>
+        {{ form.hidden_tag() }}
         <div class='conatainer'>
             {{ form.task.label }}
             {{ form.task(size=60)}}
       </div>
       <div class='conatainer'>
-            {{ form.isdone }}
+            {{ form.isDone() }}
             {{ form.isDone.label }}
             
       </div>

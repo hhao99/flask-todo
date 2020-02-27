@@ -6,7 +6,16 @@
 
 <div class='container'>
     {% for todo in todos %}
-    <li>{{todo.task}} - <a href="{{ url_for('delete',id=0) }}">DEL</a></li>
+
+    <li>
+        {{todo.id}} - 
+        {{todo.task}} - 
+        <a href="{{ url_for('delete',id= todo.id) }}">
+           
+            <span class="glyphicon glyphicon-trash">Del</span>
+            
+        </a>   
+    </li>
     {% endfor %}
 </div>
 {% endblock %}

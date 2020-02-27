@@ -20,20 +20,24 @@ def init_route(app):
     def new():
         if request.method == 'POST':
             form = TodoForm()
+            print(form)
             if form.validate_on_submit():
                 task = form.task.data 
-                isDone = form.isdone.data
+                isDone = form.isDone.data
                 t = Todo(task=task,isDone = isDone)
                 print(t)
                 db.session.add(t)
-                db.commit()
-                print(t + " is saved")
+                db.session.commit()
+                
                 return redirect(url_for('index'))
         form = TodoForm()
         return render_template('edit.html',form=form,action=url_for('new'))
 
     @app.route('/delete/<int:id>')
     def delete(id):
-        del todos[id]
+        print(f"delete the todo with id: {id}")
+        todo = db.session.query(Todo).get(id)
+        db.session.delete(todo)
+        db.session.commit()
         return redirect(url_for('index'))
        
