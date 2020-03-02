@@ -8,13 +8,17 @@
     {% for todo in todos %}
 
     <li>
-        {{todo.id}} - 
-        {{todo.task}} - 
-        <a href="{{ url_for('delete',id= todo.id) }}">
-           
-            <span class="glyphicon glyphicon-trash">Del</span>
-            
-        </a>   
+        <div class='container' color="{% if(not isDone) %}red{% endif %}">
+            {{todo.id}} - 
+            {{todo.task}} - 
+            <a href="{{ url_for('delete',id= todo.id) }}">
+               
+                <span class="glyphicon glyphicon-trash">Del</span>
+                
+            </a>   
+
+        </div>
+       
     </li>
     {% endfor %}
 </div>
