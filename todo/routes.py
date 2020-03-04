@@ -25,7 +25,7 @@ def init_route(app):
                 task = form.task.data 
                 isDone = form.isDone.data
                 t = Todo(task=task,isDone = isDone)
-                print(t)
+                print(t.isDone)
                 db.session.add(t)
                 db.session.commit()
                 
@@ -38,6 +38,14 @@ def init_route(app):
         print(f"delete the todo with id: {id}")
         todo = db.session.query(Todo).get(id)
         db.session.delete(todo)
+        db.session.commit()
+        return redirect(url_for('index'))
+    @app.route('/update/<int:id>')
+    def update(id):
+        print(f"update the todo with id: {id}")
+        todo = db.session.query(Todo).get(id)
+        todo.isDone = not todo.isDone
+        db.session.add(todo)
         db.session.commit()
         return redirect(url_for('index'))
        

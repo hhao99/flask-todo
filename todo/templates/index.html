@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 {% block main %}
+
+<script>
+    function update(id) {
+        let req = new XMLHttpRequest()
+        req.open('GET',`/update/${id}`)
+        req.send()
+        
+    }
+</script>
+
 <div class="container text-center mx-auto">
     <h1>Todo App</h1>
 </div>
@@ -8,18 +18,21 @@
     {% for todo in todos %}
 
     <li>
-        <div class='container' color="{% if(not isDone) %}red{% endif %}">
+        <div class='container'>
             {{todo.id}} - 
             {{todo.task}} - 
+            isDone <input type='checkbox' {% if(todo.isDone) %}checked{% endif %} onclick='update({{todo.id}})'>
             <a href="{{ url_for('delete',id= todo.id) }}">
                
                 <span class="glyphicon glyphicon-trash">Del</span>
-                
             </a>   
 
         </div>
        
     </li>
     {% endfor %}
+
+  
+
 </div>
 {% endblock %}
