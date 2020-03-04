@@ -15,7 +15,7 @@ lazy-object-proxy==1.4.3
 Mako==1.1.1
 MarkupSafe==1.1.1
 mccabe==0.6.1
-peewee==3.13.1
+
 pylint==2.4.4
 python-dateutil==2.8.1
 python-dotenv==0.10.5
