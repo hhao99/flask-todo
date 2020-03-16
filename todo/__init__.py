@@ -2,6 +2,8 @@ import os
 from flask import Flask
 from flask_migrate import Migrate
 
+from .api import api_bp
+
 
 def create_app(test_config = None):
     app = Flask(__name__,instance_relative_config=True)
@@ -33,5 +35,7 @@ def create_app(test_config = None):
 
 
     routes.init_route(app)
+
+    app.register_blueprint(api_bp)
 
     return app
