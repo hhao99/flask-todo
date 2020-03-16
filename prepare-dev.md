@@ -34,4 +34,11 @@ timeout = 120
   conda create -n f1
   conda activate f1
   conda install pip
+## db init and migrare
+  flask db init # if the migrate dir not existing
+  flask db upgrade
+  flask db migrate
+
+## start the app
+  flask app
 
