@@ -8,7 +8,7 @@ Click==7.0
 colorama==0.4.3
 conda==4.8.1
 conda-package-handling==1.6.0
-cryptography==2.8
+cryptography==3.2
 dominate==2.4.0
 Flask==1.1.1
 Flask-Bootstrap4==4.0.2
